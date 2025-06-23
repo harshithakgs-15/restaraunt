@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Price List</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Price List</h1>
+    <table>
+      <tr><th>Item</th><th>Price (Rs.)</th></tr>
+      {% for item, price in prices.items() %}
+      <tr>
+        <td>{{ item }}</td>
+        <td>{{ price }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{{ url_for('index') }}" class="button">Back</a>
+  </div>
+</body>
+</html>

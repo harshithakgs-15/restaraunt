@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Management System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Restaurant Management System</h1>
+    <p class="subheading">Order ID: {{ order_id }}</p>
+    
+    <form method="POST">
+      <div class="form-section">
+        <label>Fries Meal:</label>
+        <input type="number" name="fries" min="0">
+        <label>Lunch Meal:</label>
+        <input type="number" name="lunch" min="0">
+        <label>Burger Meal:</label>
+        <input type="number" name="burger" min="0">
+        <label>Pizza Meal:</label>
+        <input type="number" name="pizza" min="0">
+        <label>Cheese Burger:</label>
+        <input type="number" name="cheese" min="0">
+        <label>Drinks:</label>
+        <input type="number" name="drinks" min="0">
+      </div>
+
+      <div class="form-buttons">
+        <button type="submit" name="total">Total</button>
+        <button type="submit" name="reset">Reset</button>
+        <a href="{{ url_for('price') }}" class="button">Price</a>
+      </div>
+
+      {% if result %}
+      <div class="results">
+        <p>Subtotal: {{ result.subtotal }}</p>
+        <p>Service Charge: {{ result.service_charge }}</p>
+        <p>Tax: {{ result.tax }}</p>
+        <p>Total: {{ result.total }}</p>
+      </div>
+      {% endif %}
+    </form>
+
+    <h2>Calculator</h2>
+    <div id="calc">
+      <input id="calc-input" type="text" readonly>
+      <div id="buttons">
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button onclick="append('+')">+</button><br>
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button onclick="append('-')">-</button><br>
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button onclick="append('*')">*</button><br>
+        <button onclick="append('0')">0</button>
+        <button onclick="append('.')">.</button>
+        <button onclick="clearCalc()">C</button>
+        <button onclick="append('/')">/</button><br>
+        <button onclick="calculate()" class="equals">=</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function append(val) {
+      document.getElementById("calc-input").value += val;
+    }
+    function clearCalc() {
+      document.getElementById("calc-input").value = "";
+    }
+    function calculate() {
+      try {
+        let result = eval(document.getElementById("calc-input").value);
+        document.getElementById("calc-input").value = result;
+      } catch {
+        document.getElementById("calc-input").value = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
